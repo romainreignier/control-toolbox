@@ -230,6 +230,9 @@ bool figure(std::string i)
 // -----------------------------------------------------------------------------
 bool hist(const Eigen::Ref<const Eigen::VectorXd>& x, const double bins, const std::string histtype)
 {
+    // Make sure interpreter is initialized
+    detail::_interpreter::get();
+
     // using python lists
     PyObject* xlist = PyList_New(x.size());
 
@@ -268,6 +271,9 @@ bool hist(const Eigen::Ref<const Eigen::VectorXd>& x, const double bins, const s
 // -----------------------------------------------------------------------------
 bool boxplot(const Eigen::Ref<const Eigen::MatrixXd>& x, const std::vector<std::string>& labels)
 {
+    // Make sure interpreter is initialized
+    detail::_interpreter::get();
+
     CHECK_EQ(x.rows(), static_cast<int>(labels.size()));
 
     // using python lists
@@ -470,6 +476,9 @@ bool labelPlot(const std::string& name,
 
     CHECK_EQ(true, (x.size() == y.size()));
 
+    // Make sure interpreter is initialized
+    detail::_interpreter::get();
+
     PyObject* kwargs = PyDict_New();
     PyDict_SetItemString(kwargs, "label", PyString_FromString(name.c_str()));
 
@@ -573,6 +582,9 @@ bool labelPlot(const std::string& name,
 // -----------------------------------------------------------------------------
 void legend()
 {
+    // Make sure interpreter is initialized
+    detail::_interpreter::get();
+
     PyObject* res = PyObject_CallObject(
         detail::_interpreter::get().s_python_function_legend, detail::_interpreter::get().s_python_empty_tuple);
 
@@ -587,6 +599,9 @@ void legend()
 // -----------------------------------------------------------------------------
 void ylim(double ymin, double ymax)
 {
+    // Make sure interpreter is initialized
+    detail::_interpreter::get();
+
     PyObject* list = PyList_New(2);
     PyList_SetItem(list, 0, PyFloat_FromDouble(ymin));
     PyList_SetItem(list, 1, PyFloat_FromDouble(ymax));
@@ -608,6 +623,9 @@ void ylim(double ymin, double ymax)
 // -----------------------------------------------------------------------------
 void xlim(double xmin, double xmax)
 {
+    // Make sure interpreter is initialized
+    detail::_interpreter::get();
+
     PyObject* list = PyList_New(2);
     PyList_SetItem(list, 0, PyFloat_FromDouble(xmin));
     PyList_SetItem(list, 1, PyFloat_FromDouble(xmax));
@@ -629,6 +647,9 @@ void xlim(double xmin, double xmax)
 // -----------------------------------------------------------------------------
 void title(const std::string& titlestr)
 {
+    // Make sure interpreter is initialized
+    detail::_interpreter::get();
+
     PyObject* pytitlestr = PyString_FromString(titlestr.c_str());
     PyObject* args = PyTuple_New(1);
     PyTuple_SetItem(args, 0, pytitlestr);
@@ -645,6 +666,9 @@ void title(const std::string& titlestr)
 // -----------------------------------------------------------------------------
 void axis(const std::string& axisstr)
 {
+    // Make sure interpreter is initialized
+    detail::_interpreter::get();
+
     PyObject* str = PyString_FromString(axisstr.c_str());
     PyObject* args = PyTuple_New(1);
     PyTuple_SetItem(args, 0, str);
@@ -661,6 +685,9 @@ void axis(const std::string& axisstr)
 // -----------------------------------------------------------------------------
 void xlabel(const std::string& str)
 {
+    // Make sure interpreter is initialized
+    detail::_interpreter::get();
+
     PyObject* pystr = PyString_FromString(str.c_str());
     PyObject* args = PyTuple_New(1);
     PyTuple_SetItem(args, 0, pystr);
@@ -677,6 +704,9 @@ void xlabel(const std::string& str)
 // -----------------------------------------------------------------------------
 void ylabel(const std::string& str)
 {
+    // Make sure interpreter is initialized
+    detail::_interpreter::get();
+
     PyObject* pystr = PyString_FromString(str.c_str());
     PyObject* args = PyTuple_New(1);
     PyTuple_SetItem(args, 0, pystr);
@@ -693,6 +723,9 @@ void ylabel(const std::string& str)
 // -----------------------------------------------------------------------------
 void grid(bool flag)
 {
+    // Make sure interpreter is initialized
+    detail::_interpreter::get();
+
     PyObject* pyflag = flag ? Py_True : Py_False;
 
     PyObject* args = PyTuple_New(1);
@@ -710,6 +743,9 @@ void grid(bool flag)
 // -----------------------------------------------------------------------------
 void show(bool block)
 {
+    // Make sure interpreter is initialized
+    detail::_interpreter::get();
+
     PyObject* pyflag = block ? Py_True : Py_False;
 
     PyObject* kwargs = PyDict_New();
@@ -730,6 +766,9 @@ void show(bool block)
 // -----------------------------------------------------------------------------
 void save(const std::string& filename)
 {
+    // Make sure interpreter is initialized
+    detail::_interpreter::get();
+
     PyObject* pyfilename = PyString_FromString(filename.c_str());
 
     PyObject* args = PyTuple_New(1);
